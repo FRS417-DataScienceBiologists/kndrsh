@@ -128,6 +128,9 @@ summarize() will produce summary statistics for a given variable in a data frame
 ```{r}
 ?msleep
 ```
+```{r}
+readr::read_csv("/Users/clmuser/Desktop/class_files-master/Gaeta_etal_CLC_data.csv")
+```
 
 From homework 2.
 ```{r}
@@ -135,6 +138,7 @@ large <- msleep %>%
   select(name, genus, bodywt, sleep_total) %>% 
   filter(bodywt>=200) %>% 
   arrange(desc(bodywt))
+large
 ```
 
 ```{r}
@@ -145,8 +149,13 @@ We can accomplish the same task using the `summarize()` function in the tidyvers
 ```{r}
 msleep %>% 
   filter(bodywt>=200) %>%
-  summarize(mean_sleep_lg=mean(sleep_total))
+  summarize(mean_sleep_lg=mean(sleep_total),
+min_sleep_lg = min (sleep_total),
+max_sleep_lg = max(sleep_total),
+sd_sleep_lg = sd(sleep_total), 
+total =n())
 ```
+
 
 You can also combine functions to make useful summaries for multiple variables.
 ```{r}
@@ -163,8 +172,19 @@ There are many other useful summary statistics, depending on your needs: sd(), m
 ## Practice
 1. How many genera are represented in the msleep data frame?
 
+```{r}
+msleep %>% 
+  summarize( ngenera=n_distinct(genus))
+```
 
 2. What are the min, max, and mean body weight for all of the mammals? Be sure to include the total n.
+```{r}
+msleep %>%
+  summarize(min = min (bodywt), 
+  max = max(bodywt),
+mean=mean(bodywt),
+total = n())
+```
 
 
 ##group_by()
@@ -182,10 +202,20 @@ msleep %>%
 1. Calculate mean brain weight by taxonomic order in the msleep data.
 
 
+```{r}
+msleep %>%
+group_by(order) %>%
+  summarize (mean_nrain_wt=mean(brainwt))
+```
+
 2. What does `NA` mean?
 
 3. Try running the code again, but this time add `na.rm=TRUE`. What is the problem with Cetacea?
-
+```{r}
+msleep %>%
+group_by(order) %>%
+  summarize (mean_nrain_wt=mean(brainwt, na.rm =TRUE))
+```
 
 ```{r}
 msleep %>% 
