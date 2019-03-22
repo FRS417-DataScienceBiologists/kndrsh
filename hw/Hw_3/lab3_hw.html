@@ -199,9 +199,7 @@ $(document).ready(function () {
 <h2>Load the libraries</h2>
 <pre class="r"><code>library(tidyverse)</code></pre>
 <p>For this assignment we are going to work with a large dataset from the <a href="http://www.fao.org/about/en/">United Nations Food and Agriculture Organization</a> on world fisheries. The data are messy, so for this assignment I am going to provide some help. The code I use will likely be useful in the future so keep it handy. First, load the data. <strong>Read</strong> the error message.</p>
-<pre class="r"><code>getwd()</code></pre>
-<pre><code>## [1] &quot;C:/Users/Isha/Desktop&quot;</code></pre>
-<pre class="r"><code>fisheries &lt;- readr::read_csv(file = &quot;C:/Users/Isha/Desktop/FRST 147/class_files-master/FAO_1950to2012_111914.csv&quot;) </code></pre>
+<pre class="r"><code>fisheries &lt;- readr::read_csv(file = &quot;data/FAO_1950to2012_111914.csv&quot;) </code></pre>
 <pre><code>## Warning: Duplicated column names deduplicated: 'Species (ISSCAAP group)'
 ## =&gt; 'Species (ISSCAAP group)_1' [4], 'Species (ASFIS species)' =&gt; 'Species
 ## (ASFIS species)_1' [5], 'Species (ASFIS species)' =&gt; 'Species (ASFIS
@@ -483,8 +481,7 @@ fisheries_new</code></pre>
     year= as.numeric(str_replace(year, 'X', '')), #remove the X from year
    catch= as.numeric(str_replace(catch, c(' F','...','-'), replacement = '')) #replace character strings with NA
     )</code></pre>
-<pre><code>## Warning in evalq(as.numeric(str_replace(catch, c(&quot; F&quot;, &quot;...&quot;, &quot;-&quot;),
-## replacement = &quot;&quot;)), : NAs introduced by coercion</code></pre>
+<pre><code>## Warning: NAs introduced by coercion</code></pre>
 <pre class="r"><code>fisheries_tidy</code></pre>
 <pre><code>## # A tibble: 1,114,596 x 10
 ##    country commname spgroup spgroupname spcode sciname region unit   year
